@@ -16,6 +16,30 @@ Motivation
 - Why 
 - Featurs
 
+* Easy to get Started
+
+.play virtualenv.sh /begin/,/end/
+
+Takes about 24 Seconds, and we are ready to go.
+
+See
+
+.link http://docs.ansible.com/intro_installation.html
+
+* Thats all? Really?
+
+Yes, we did setup an usable ansible evnironment with the two primary ansible commands available:
+
+- *ansible* for ad hoc automation
+- *ansible-playbook* to execute playbooks ( more on playbooks later) 
+
+So we are ready To explore The first cool Feature of Ansible, ad-hoc automation.
+
+* Ad-Hoc Automation with ansible
+
+.play simple_adhoc.sh /begin/,/end/
+
+
 * Agenda
 
 Introduction to Ansible
@@ -32,3 +56,4 @@ Practical Examples
 
 - Jenkins integration
 - Live Deployment
+
