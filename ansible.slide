@@ -1,0 +1,31 @@
+Ansible - who needs another automation framework?
+short introduction to the concepts of the python based automation framework ANSIBLE
+29 Apr 2014
+Tags: ansible, devops
+
+Andreas Pohle, Cornelius Keller, Teymour Taghavi
+Bettermarks Devops Team
+bmdevops@bettermarks.de
+http://www.bettermarks.com
+@bettermarks
+
+* Agenda
+
+Motivation
+
+- Why 
+- Featurs
+
+Introduction to Ansible
+
+- Inventories
+- Playbooks
+- Variables
+- Tasks
+- Notifications
+
+
+Practical Examples
+
+- Jenkins integration
+- Live Deployment
