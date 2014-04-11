@@ -12,3 +12,5 @@ Setup
   $ $GOPATH/bin/present 
 
 * Head your Browser to http://localhost:3999/ansible.slide#1
+* Contribute to the Presentatio by editing ansible.slide
+* For a documentation of the file format see http://godoc.org/code.google.com/p/go.tools/present
