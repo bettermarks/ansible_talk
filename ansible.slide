@@ -20,7 +20,7 @@ Motivation
 
 .play virtualenv.sh /begin/,/end/
 
-Takes about 24 Seconds, and we are ready to go.
+Takes about 30 Seconds, and we are ready to go.
 
 See
 
