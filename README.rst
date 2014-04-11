@@ -1,7 +1,8 @@
-=== Setup ===
+Setup
+=====
 
 * Install go (find a guide on the web 
-* Install go present
+* Install go present::
 
   $ export GOPATH=$HOME/go
   $ go get code.google.com/p/go.talks/present
