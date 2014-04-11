@@ -22,9 +22,7 @@ Motivation
 
 Takes about 30 Seconds, and we are ready to go.
 
-See
-
-.link http://docs.ansible.com/intro_installation.html
+See [[http://docs.ansible.com/intro_installation.html]]
 
 * Thats all? Really?
 
@@ -38,6 +36,43 @@ So we are ready To explore The first cool Feature of Ansible, ad-hoc automation.
 * Ad-Hoc Automation with ansible
 
 .play simple_adhoc.sh /begin/,/end/
+
+We just executed the simplest possible ansible module *ping* on our local machine.
+We will learn more about ansible modules in a few minutes.
+
+* Modlues
+
+- scripts with a very simple interface, can be written in any language
+- are called with the parameters as key=value pairs 
+- return json 
+- are idempotent, i.e. do noting if the desired target state is already there.
+
+
+
+
+For most use cases there are already modules included in anslible, but it is easy to write your ownes.
+See [[http://docs.ansible.com/modules_by_category.html]] for a list of included modules.
+
+* More Ad-Hoc examples with modules
+
+Check out the ansible source code into /tmp
+
+# TODO ansible is to big, takes to long in presentation mode :(
+
+.play git_checkout.sh /begin/,/end/
+
+Delete it again
+
+.play delete_checkout.sh /begin/,/end/
+
+Stop apache running at [[http://localhost/]]:
+
+.play stop_apache.sh /begin/,/end/
+
+Start it again
+
+.play start_apache.sh /begin/,/end/
+
 
 * Inventory
 
@@ -55,6 +90,11 @@ First export inventory location ( defaults to /etc/anslible/hosts )
 Now we can use the demo group definded in the inventory with ansible
 
 .play simple_adhoc_with_inventory.sh /begin/,/end/
+
+
+* But .ini files do not scale
+
+If you have to manage , lets say, 700 vms in two data centers .ini and .yaml files will not scale.
 
 
 * dynamic inventories
