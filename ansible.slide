@@ -39,6 +39,44 @@ So we are ready To explore The first cool Feature of Ansible, ad-hoc automation.
 
 .play simple_adhoc.sh /begin/,/end/
 
+* Inventory
+
+.code hosts
+
+Ansibles default inventories are files in .ini format. A section corresponds to a host group, in this case *demo*. In this case the four members of demo are obviously the local machine.
+An Inventory can contain much more then the hostnames. You also can provide variables for hosts or groups in an combination of .ini .yaml files.
+
+* Ad-Hoc with inventory
+
+First export inventory location ( defaults to /etc/anslible/hosts )
+
+.code simple_adhoc_with_inventory.sh /inventory/,/end/
+
+Now we can use the demo group definded in the inventory with ansible
+
+.play simple_adhoc_with_inventory.sh /begin/,/end/
+
+
+* dynamic inventories
+
+Ansible can read dynamic inventories as an output of an scirpt. So you can plug in your own inventory. 
+Bettermarks has a custom invetory backed by spacewalk, as there whre no spacewalk inventory provided when we started using ansible.
+Right now there prepackaged scripts for the following environments: 
+
+  Amazon EC2
+  BSD Jails
+  Digital Ocean
+  Google Compute Engine
+  Linode
+  OpenShift
+  OpenStack Nova
+  Red Hat's SpaceWalk
+  Vagrant (not to be confused with the provisioner in vagrant, which is preferred)
+  Zabbix
+
+
+see [[http://docs.ansible.com/intro_dynamic_inventory.html]] for more information on dynamic inventories.
+
 
 * Agenda
 
