@@ -55,6 +55,10 @@ See [[http://docs.ansible.com/modules_by_category.html]] for a list of included 
 
 * More Ad-Hoc examples with modules
 
+Gathering Facts
+
+.play gathering_facts.sh /begin/,/end/
+
 Check out the ansible source code into /tmp
 
 # TODO ansible is to big, takes to long in presentation mode :(
@@ -90,6 +94,9 @@ First export inventory location ( defaults to /etc/anslible/hosts )
 Now we can use the demo group definded in the inventory with ansible
 
 .play simple_adhoc_with_inventory.sh /begin/,/end/
+
+Ansible will execute the ping module in parallel on all machines matching *demo*.
+You can chung this to n machine chungs with the parameter -f n or --forks=n.
 
 
 * But .ini files do not scale
