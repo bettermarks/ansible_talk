@@ -14,7 +14,7 @@ http://www.bettermarks.com
 Motivation
 
 - Why 
-- Featurs
+- Features
 
 * Easy to get Started
 
@@ -40,7 +40,7 @@ So we are ready To explore The first cool Feature of Ansible, ad-hoc automation.
 We just executed the simplest possible ansible module *ping* on our local machine.
 We will learn more about ansible modules in a few minutes.
 
-* Modlues
+* Modules
 
 - scripts with a very simple interface, can be written in any language
 - are called with the parameters as key=value pairs 
