@@ -137,7 +137,7 @@ In the following slides we will learn a little bit of theory on the playbook lan
 * Anatomy of a Playbook
 
 A playbook can contaion multiple plays.
-Each play has is made of:
+Each play is made of:
 
 - A Header section defining Hosts, Users and opitonal Variables
 - A Tasks section defining the actual tasks to be executed
@@ -191,18 +191,11 @@ Each play has is made of:
 The handlers are defied in the thame way as tasks but in the handlers section. Handlers are only executed if the module called by a task actualy changed something.
 
 
+* Variables 
+
+# TODO describe Variables.
 
 
-
-* Agenda
-
-Introduction to Ansible
-
-- Inventories
-- Playbooks
-- Variables
-- Tasks
-- Notifications
 
 * Agenda
 
