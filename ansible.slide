@@ -124,6 +124,75 @@ Right now there prepackaged scripts for the following environments:
 
 see [[http://docs.ansible.com/intro_dynamic_inventory.html]] for more information on dynamic inventories.
 
+* Playbooks
+
+Playbooks are a simple but powerful way to do your system automation build on top of inventories and modules.
+A playbooks can be used to provision a single machine or orchestrate a set of machines or even an entire cluster.
+
+- Playbooks are human readable, written in YAML.
+- Describe the desired state of your infrastructure.
+
+In the following slides we will learn a little bit of theory on the playbook language and continue with some practical examples later.
+
+* Anatomy of a Playbook
+
+A playbook can contaion multiple plays.
+Each play has is made of:
+
+- A Header section defining Hosts, Users and opitonal Variables
+- A Tasks section defining the actual tasks to be executed
+- A Handlers section containing handlers to be notified by the tasks.
+
+* Play Header  Hosts and Users and Roles
+
+
+ ---
+ - hosts: webservers # pattern to match inventory
+   remote_user: remote_user # user used by the ssh connection
+   sudo: yes # use sudo
+   sudo_user: # sudo as user
+   roles:
+      - role1
+      - role2
+
+
+- remote_user is the user used by ssh. 
+- if sudo: yes is used, the remote user must have sudo privileges.
+- sudo_user: execute as the user via sodo.
+- User can be set on task level using the same syntax.
+- Roles are reusable playbooks distributed in a defined folder structure ( more on roles later).
+
+* Tasks 
+
+- is defined by a name and a module definition
+
+ tasks:
+ - name: make sure apache is running
+   service: name=httpd state=running
+
+- can ignore rerros, otherwise the execution of the playbook will stop on error
+
+ ignore_errors: True
+
+- can notify handlers defined in the handlers section.
+
+ notify:
+     - restart memcached
+     - restart apache
+
+* Handlers
+
+ handlers:
+    - name: restart memcached
+      service:  name=memcached state=restarted
+    - name: restart apache
+      service: name=apache state=restarted
+
+The handlers are defied in the thame way as tasks but in the handlers section. Handlers are only executed if the module called by a task actualy changed something.
+
+
+
+
 
 * Agenda
 
