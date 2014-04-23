@@ -3,6 +3,6 @@
 
 # begin OMIT
 
-ansible 127.0.0.1 -m git -a "repo=https://github.com/ansible/ansible.git dest=/tmp/ansible version=HEAD"
+ansible all -vv -m git -a "repo=https://github.com/ansible/ansible.git dest=/tmp/ansible version=HEAD" -c local -i 127.0.0.1, 
 
 # end OMIT

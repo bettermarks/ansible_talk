@@ -3,6 +3,6 @@
 
 # begin OMIT
 
-ansible 127.0.0.1 -m setup  -c local
+ansible all -v -m setup  -c local -i 127.0.0.1,
 
 # end OMIT

@@ -20,20 +20,20 @@ Motivation
 
 .play virtualenv.sh /begin/,/end/
 
-Takes about 30 Seconds, and we are ready to go.
+Takes about 30 seconds and we are ready to go.
 
 See [[http://docs.ansible.com/intro_installation.html]]
 
-* Thats all? Really?
+* That's all? Really?
 
-Yes, we did setup an usable ansible evnironment with the two primary ansible commands available:
+Yes, we did setup a usable ansible environment with the two primary ansible commands available:
 
 - *ansible* for ad hoc automation
-- *ansible-playbook* to execute playbooks ( more on playbooks later) 
+- *ansible-playbook* to execute playbooks (more on playbooks later) 
 
-So we are ready To explore The first cool Feature of Ansible, ad-hoc automation.
+So we are ready to explore The first cool Feature of Ansible, ad-hoc automation.
 
-* Ad-Hoc Automation with ansible
+* Ad-Hoc automation with ansible
 
 .play simple_adhoc.sh /begin/,/end/
 
@@ -47,15 +47,13 @@ We will learn more about ansible modules in a few minutes.
 - return json 
 - are idempotent, i.e. do noting if the desired target state is already there.
 
+For most use cases there are already modules included in ansible, but it is easy to write your own modules.
 
-
-
-For most use cases there are already modules included in anslible, but it is easy to write your ownes.
-See [[http://docs.ansible.com/modules_by_category.html]] for a list of included modules.
+See [[http://docs.ansible.com/modules_by_category.html]] for a list of available modules.
 
 * More Ad-Hoc examples with modules
 
-Gathering Facts
+Gathering facts
 
 .play gathering_facts.sh /begin/,/end/
 
@@ -77,17 +75,17 @@ Start it again
 
 .play start_apache.sh /begin/,/end/
 
-
 * Inventory
 
 .code hosts
 
-Ansibles default inventories are files in .ini format. A section corresponds to a host group, in this case *demo*. In this case the four members of demo are obviously the local machine.
-An Inventory can contain much more then the hostnames. You also can provide variables for hosts or groups in an combination of .ini .yaml files.
+Ansible's default inventories are files in .ini format. A section corresponds to a host group, in this case *demo*. In this case the four members of demo are obviously the local machine.
+
+An inventory can contain much more then the hostnames. You can also provide variables for hosts or groups in a combination of .ini and .yaml files.
 
 * Ad-Hoc with inventory
 
-First export inventory location ( defaults to /etc/anslible/hosts )
+First export inventory location (defaults to /etc/anslible/hosts)
 
 .code simple_adhoc_with_inventory.sh /inventory/,/end/
 
@@ -95,22 +93,20 @@ Now we can use the demo group definded in the inventory with ansible
 
 .play simple_adhoc_with_inventory.sh /begin/,/end/
 
-Ansible will execute the ping module in parallel on all machines matching *demo*.
-You can chung this to n machine chungs with the parameter -f n or --forks=n.
-
+Ansible will execute the ping module in parallel on all machines matching *demo*. You can limit the number of parallel deployments with parameter -f n or --forks=n.
 
 * But .ini files do not scale
 
 If you have to manage , lets say, 700 vms in two data centers .ini and .yaml files will not scale.
 
+* Dynamic inventories
 
-* dynamic inventories
+Ansible can read dynamic inventories as an output of a script. So you can plug in your own inventory.
 
-Ansible can read dynamic inventories as an output of an scirpt. So you can plug in your own inventory. 
-Bettermarks has a custom invetory backed by spacewalk, as there whre no spacewalk inventory provided when we started using ansible.
-Right now there prepackaged scripts for the following environments: 
+Currently ansible comes with scripts that support following inventory sources (found in the plugins/ folder)
 
   Amazon EC2
+  Cobbler
   BSD Jails
   Digital Ocean
   Google Compute Engine
@@ -121,13 +117,15 @@ Right now there prepackaged scripts for the following environments:
   Vagrant (not to be confused with the provisioner in vagrant, which is preferred)
   Zabbix
 
+#Note that at the time when bettermarks started with ansible there was no SpaceWalk script, so we had to write our own script.
 
 see [[http://docs.ansible.com/intro_dynamic_inventory.html]] for more information on dynamic inventories.
 
 * Playbooks
 
 Playbooks are a simple but powerful way to do your system automation build on top of inventories and modules.
-A playbooks can be used to provision a single machine or orchestrate a set of machines or even an entire cluster.
+
+A playbook can be used to provision a single machine or orchestrate a set of machines or even an entire cluster.
 
 - Playbooks are human readable, written in YAML.
 - Describe the desired state of your infrastructure.
@@ -136,21 +134,22 @@ In the following slides we will learn a little bit of theory on the playbook lan
 
 * Anatomy of a Playbook
 
-A playbook can contaion multiple plays.
+A playbook can contain multiple *plays*.
+
 Each play is made of:
 
-- A Header section defining Hosts, Users and opitonal Variables
-- A Tasks section defining the actual tasks to be executed
-- A Handlers section containing handlers to be notified by the tasks.
+- a header section defining hosts, users and optional variables
+- a tasks section defining the actual tasks to be executed
+- a handlers section containing handlers to be notified by the tasks.
 
-* Play Header  Hosts and Users and Roles
+* Play Header: Hosts, users and roles
 
 
  ---
- - hosts: webservers # pattern to match inventory
-   remote_user: remote_user # user used by the ssh connection
-   sudo: yes # use sudo
-   sudo_user: # sudo as user
+ - hosts: webservers        # pattern to match inventory
+   remote_user: blub        # user used by the ssh connection
+   sudo: yes                # use sudo
+   sudo_user: blah          # sudo as user
    roles:
       - role1
       - role2

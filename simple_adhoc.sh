@@ -3,6 +3,6 @@
 
 # begin OMIT
 
-ansible 127.0.0.1 -m ping  -c local
+ansible all -m ping -c local -i 127.0.0.1,
 
 # end OMIT
