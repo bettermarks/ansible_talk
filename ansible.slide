@@ -194,6 +194,28 @@ The handlers are defied in the thame way as tasks but in the handlers section. H
 
 * Loops
 
+* Standard  Loop Example
+
+ - name: add several users
+   user: name={{ item }} state=present groups=wheel
+   with_items:
+      - testuser1
+      - testuser2
+
+with_items: can refer to list defined in the vars section, in a variables file or the inventory.
+
+ with_items: somelist
+
+* More Loops
+
+See  [[http://docs.ansible.com/playbooks_loops.html]] for more complex loop examples including:
+
+- Nested loops
+- Loops over hashes
+- Loops over fileglobs
+- Loops over integer sequences 
+- etc. 
+
 * Conditions
 
 
