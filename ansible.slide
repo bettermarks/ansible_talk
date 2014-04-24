@@ -252,4 +252,22 @@ Practical Examples
      "time" : date
  })
 
+* 
+
+when something failed in the module
+
+ print json.dumps({
+     "failed" : True,
+     "msg"    : "failed setting the time"
+ })
+ sys.exit(1)
+
+when something changed during running the module
+
+ print json.dumps({
+    "time" : date,
+    "changed" : True
+ })
+ sys.exit(0)
+
 [[http://docs.ansible.com/developing_modules.html]]
