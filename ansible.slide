@@ -230,7 +230,26 @@ See  [[http://docs.ansible.com/playbooks_loops.html]] for more complex loop exam
 Practical Examples
 
 - Write your own Modules
-- Jenkins integration
+- Jenkins integration (??)
 - Ansible Tower
-- Live Deployment
-- Wordpress deployment at Amazon-Cloud
+- Live Deployment (??)
+- Wordpress deployment
+
+* Write your own modules
+
+- write the modules in any language you want
+- only File I/O is required
+- any input parameter is a pair of key=value
+- output has to be json or key=value results all on one line
+
+ #!/usr/bin/python
+ 
+ import datetime
+ import json
+ 
+ date = str(datetime.datetime.now())
+ print json.dumps({
+     "time" : date
+ })
+
+[[http://docs.ansible.com/developing_modules.html]]
