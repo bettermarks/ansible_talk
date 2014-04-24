@@ -226,7 +226,8 @@ See  [[http://docs.ansible.com/playbooks_loops.html]] for more complex loop exam
 
 Practical Examples
 
-- Modules
+- Shipped Modules
+- Write your own Modules
 - Jenkins integration
 - Ansible Tower
 - Live Deployment
