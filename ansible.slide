@@ -49,7 +49,10 @@ We will learn more about ansible modules in a few minutes.
 
 For most use cases there are already modules included in ansible, but it is easy to write your own modules.
 
-See [[http://docs.ansible.com/modules_by_category.html]] for a list of available modules.
+* 
+.image images/ansible_modules.png
+
+[[http://docs.ansible.com/modules_by_category.html]]
 
 * More Ad-Hoc examples with modules
 
@@ -226,7 +229,6 @@ See  [[http://docs.ansible.com/playbooks_loops.html]] for more complex loop exam
 
 Practical Examples
 
-- Shipped Modules
 - Write your own Modules
 - Jenkins integration
 - Ansible Tower
