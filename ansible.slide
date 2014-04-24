@@ -1,10 +1,10 @@
 Ansible - who needs another automation framework?
-short introduction to the concepts of the python based automation framework ANSIBLE
+introduction to the concepts of the python based automation framework ANSIBLE
 29 Apr 2014
 Tags: ansible, devops
 
-Andreas Pohle, Cornelius Keller, Teymour Taghavi
-from the Bettermarks Devops Team
+Andreas Pohle (@apoh), Cornelius Keller, Teymour Taghavi
+by bettermarks DevOps Team
 bmdevops@bettermarks.de
 http://www.bettermarks.com
 @bettermarks
@@ -13,7 +13,7 @@ http://www.bettermarks.com
 
 Motivation
 
-- Why 
+- Why
 - Features
 
 * Easy to get Started
@@ -29,7 +29,7 @@ See [[http://docs.ansible.com/intro_installation.html]]
 Yes, we did setup a usable ansible environment with the two primary ansible commands available:
 
 - *ansible* for ad hoc automation
-- *ansible-playbook* to execute playbooks (more on playbooks later) 
+- *ansible-playbook* to execute playbooks (more on playbooks later)
 
 So we are ready to explore The first cool Feature of Ansible, ad-hoc automation.
 
@@ -43,8 +43,8 @@ We will learn more about ansible modules in a few minutes.
 * Modules
 
 - scripts with a very simple interface, can be written in any language
-- are called with the parameters as key=value pairs 
-- return json 
+- are called with the parameters as key=value pairs
+- return json
 - are idempotent, i.e. do noting if the desired target state is already there.
 
 For most use cases there are already modules included in ansible, but it is easy to write your own modules.
@@ -155,13 +155,13 @@ Each play is made of:
       - role2
 
 
-- remote_user is the user used by ssh. 
+- remote_user is the user used by ssh.
 - if sudo: yes is used, the remote user must have sudo privileges.
 - sudo_user: execute as the user via sodo.
 - User can be set on task level using the same syntax.
 - Roles are reusable playbooks distributed in a defined folder structure ( more on roles later).
 
-* Tasks 
+* Tasks
 
 - is defined by a name and a module definition
 
@@ -190,7 +190,7 @@ Each play is made of:
 The handlers are defied in the thame way as tasks but in the handlers section. Handlers are only executed if the module called by a task actualy changed something.
 
 
-* Variables 
+* Variables
 
 * Loops
 
@@ -213,8 +213,8 @@ See  [[http://docs.ansible.com/playbooks_loops.html]] for more complex loop exam
 - Nested loops
 - Loops over hashes
 - Loops over fileglobs
-- Loops over integer sequences 
-- etc. 
+- Loops over integer sequences
+- etc.
 
 * Conditions
 
@@ -222,11 +222,14 @@ See  [[http://docs.ansible.com/playbooks_loops.html]] for more complex loop exam
 # TODO describe Variables.
 
 
-
 * Agenda
 
 Practical Examples
 
+- Modules
 - Jenkins integration
+- Ansible Tower
 - Live Deployment
 
+* 
+.image images/ansible_modules.png
