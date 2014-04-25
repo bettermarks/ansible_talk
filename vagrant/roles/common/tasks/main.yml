@@ -1,0 +1,2 @@
+# Only run "update_cache=yes" if the last one is more than more than 7200 seconds ago
+- apt: update_cache=yes cache_valid_time=7200

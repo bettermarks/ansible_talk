@@ -33,6 +33,10 @@ define('DB_CHARSET', 'utf8');
 /** The Database Collate type. Don't change this if in doubt. */
 define('DB_COLLATE', '');
 
+define('DOMAIN_CURRENT_SITE', '{{ server_hostname }}');
+define('WP_HOME','http://{{ server_hostname }}');
+define('WP_SITEURL','http://{{ server_hostname }}');
+
 /**
  * WordPress Database Table prefix.
  *
@@ -70,7 +74,7 @@ if ( !defined('ABSPATH') )
 require_once(ABSPATH . 'wp-settings.php');
 
 /** Disable Automatic Updates Completely */
-define( 'AUTOMATIC_UPDATER_DISABLED', {{auto_up_disable}} );
+define( 'AUTOMATIC_UPDATER_DISABLED', false );
 
 /** Define AUTOMATIC Updates for Components. */
-define( 'WP_AUTO_UPDATE_CORE', {{core_update_level}} );
+define( 'WP_AUTO_UPDATE_CORE', true );

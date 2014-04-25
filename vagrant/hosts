@@ -1,9 +1,9 @@
-[loadbalancer]
+[dbservers]
 192.168.33.10
 
-[webservers]
+[loadbalancer]
 192.168.33.11
-192.168.33.12
 
-[dbservers]
+[webservers]
+192.168.33.12
 192.168.33.13
