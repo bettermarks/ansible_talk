@@ -126,27 +126,31 @@ see [[http://docs.ansible.com/intro_dynamic_inventory.html]] for more informatio
 
 * Playbooks
 
-Playbooks are a simple but powerful way to do your system automation build on top of inventories and modules.
+"If Ansible modules are the tools in your workshop, playbooks are your design plans."
 
-A playbook can be used to provision a single machine or orchestrate a set of machines or even an entire cluster.
+Simply put, playbooks are a collection of ansible actions. Additionaly, they provide tools to control the flow of those actions.
+
+A playbook can be used to provision a single machine, orchestrate a set of machines or even an entire cluster.
 
 - Playbooks are human readable, written in YAML.
 - Describe the desired state of your infrastructure.
 
-In the following slides we will learn a little bit of theory on the playbook language and continue with some practical examples later.
-
 * Anatomy of a Playbook
 
-A playbook can contain multiple *plays*.
+A playbook consists of one or more *plays*.
 
-Each play is made of:
+Each play has:
 
-- a header section defining hosts, users and optional variables
-- a tasks section defining the actual tasks to be executed
-- a handlers section containing handlers to be notified by the tasks.
+- a header section defining hosts and optional variables
+- a task section defining the actual tasks to be executed
+- an optional handler section containing callbacks to be notified by the tasks.
+
+* Example playbook
+
+.code playbooks/playbook1.yml
+.play playbooks/playbook1.sh /begin/,/end/
 
 * Play Header: Hosts, users and roles
-
 
  ---
  - hosts: webservers        # pattern to match inventory
@@ -160,9 +164,9 @@ Each play is made of:
 
 - remote_user is the user used by ssh.
 - if sudo: yes is used, the remote user must have sudo privileges.
-- sudo_user: execute as the user via sodo.
-- User can be set on task level using the same syntax.
-- Roles are reusable playbooks distributed in a defined folder structure ( more on roles later).
+- sudo_user: execute the play via sudo.
+- user can be set on task level using the same syntax.
+- roles are reusable playbooks distributed in a defined folder structure ( more on roles later).
 
 * Tasks
 
@@ -172,7 +176,7 @@ Each play is made of:
  - name: make sure apache is running
    service: name=httpd state=running
 
-- can ignore rerros, otherwise the execution of the playbook will stop on error
+- can ignore errors, otherwise the execution of the playbook will stop on error
 
  ignore_errors: True
 
