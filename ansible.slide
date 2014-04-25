@@ -219,7 +219,14 @@ See  [[http://docs.ansible.com/playbooks_loops.html]] for more complex loop exam
 - Loops over integer sequences
 - etc.
 
-* Conditions
+* Conditionals
+
+You can use the when statement to execute tasks only if certain conditions are met. 
+
+ tasks:
+   - name: "shutdown Debian flavored systems"
+     command: /sbin/shutdown -t now
+     when: ansible_os_family == "Debian"
 
 
 # TODO describe Variables.
