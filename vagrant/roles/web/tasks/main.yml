@@ -1,0 +1,41 @@
+- name: Install php-fpm and deps
+  apt: name={{ item }} state=present
+  with_items:
+    - nginx
+    - php5
+    - php5-fpm
+    - php5-enchant
+    - php5-intl
+    - php5-cgi
+    - php5-mysql
+    - libphp-phpmailer
+    - libphp-simplepie
+    - php-xml-parser
+    - python-mysqldb
+
+- name: Copy nginx configuration for wordpress
+  template: src=default.conf dest=/etc/nginx/conf.d/default.conf
+  notify: restart nginx
+
+- name: Copy php-fpm configuration
+  template: src=wordpress.conf dest=/etc/php5/fpm/pool.d/
+  notify: restart php-fpm
+
+- name: Download Wordpress
+  get_url: url=http://wordpress.org/wordpress-{{ wp_version }}.tar.gz dest=/srv/wordpress-{{ wp_version }}.tar.gz
+
+- name: Extract archive
+  command: chdir=/srv/ /bin/tar xvf wordpress-{{ wp_version }}.tar.gz creates=/srv/wordpress
+
+- name: Add group "wordpress"
+  group: name=wordpress
+
+- name: Add user "wordpress"
+  user: name=wordpress group=wordpress home=/srv/wordpress/
+
+- name: Copy Wordpress config file
+  template: src=wp-config.php dest=/srv/wordpress/
+
+- name: Change ownership of Wordpress installation
+  file: path=/srv/wordpress/ owner=wordpress group=wordpress state=directory recurse=yes
+
