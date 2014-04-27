@@ -1,11 +1,14 @@
-Ansible - who needs another automation framework?
-introduction to the concepts of the python based automation framework ANSIBLE
-29 Apr 2014
+Ansible - Who Needs Another Automation Framework?
+Introduction to the concepts of the Python-based automation framework Ansible
+
+29 April 2014
 Tags: ansible, devops
 
 Andreas Pohle (@apoh), Cornelius Keller, Teymour Taghavi
-by bettermarks DevOps Team
+
+bettermarks DevOps
 bmdevops@bettermarks.de
+
 http://www.bettermarks.com
 @bettermarks
 
@@ -147,8 +150,8 @@ Each play has:
 
 * Example playbook
 
-.code playbooks/playbook1.yml
-.play playbooks/playbook1.sh /begin/,/end/
+#.code playbooks/playbook1.yml
+#.play playbooks/playbook1.sh /begin/,/end/
 
 * Play Header: Hosts, users and roles
 
@@ -236,17 +239,14 @@ You can use the when statement to execute tasks only if certain conditions are m
 # TODO describe Variables.
 
 
-* Agenda
+* Practical Examples
 
-Practical Examples
-
-- Write your own Modules
+- Write your own modules
 - Jenkins integration (??)
 - Ansible Tower
-- Live Deployment (??)
 - Wordpress deployment
 
-* Write your own modules
+* Write Your Own Modules
 
 - write the modules in any language you want
 - only File I/O is required
@@ -265,7 +265,7 @@ Practical Examples
 
 * 
 
-when something failed in the module
+In case of a failure
 
  print json.dumps({
      "failed" : True,
@@ -273,7 +273,7 @@ when something failed in the module
  })
  sys.exit(1)
 
-when something changed during running the module
+In case changes occur while running the module
 
  print json.dumps({
     "time" : date,
@@ -282,3 +282,77 @@ when something changed during running the module
  sys.exit(0)
 
 [[http://docs.ansible.com/developing_modules.html]]
+
+* Wordpress Deployment
+.image images/wordpress_setup.png 600 700
+
+* Files
+ .
+ ├── hosts                  # inventory file
+ ├── site.yml               # master playbook
+ ├── group_vars
+ │   └── all                # variables
+ └── roles                  # this hierarchy represents a "role"
+     ├── common
+     │   └── tasks
+     │       └── main.yml
+     ├── db
+     │   ├── handlers
+     │   │   └── main.yml   # handlers file (restart database)
+     │   ├── tasks
+     │   │   └── main.yml   # playbook for 'db' role
+     │   └── templates      # files for use with the template resource written in jinja2
+     │       └── my.cnf
+     ├── lb
+     │   └── ...
+     └── web
+         └── ...
+
+* 
+
+ ...
+ └── roles
+     ├── common
+     │   └── ...
+     ├── db
+     │   └── ...
+     ├── lb
+     │   ├── handlers
+     │   │   └── main.yml
+     │   ├── tasks
+     │   │   └── main.yml
+     │   └── templates
+     │       └── default.conf   # nginx configuration file
+     └── web
+         ├── handlers
+         │   └── main.yml
+         ├── tasks
+         │   └── main.yml
+         └── templates
+             ├── default.conf   # nginx configuration file
+             ├── wordpress.conf # php fastcgi (php-fpm) configuration file
+             └── wp-config.php  # wordpress configuration file
+
+* Inventory
+
+hosts
+
+.code vagrant/hosts
+
+group_vars/all
+
+.code vagrant/group_vars/all
+
+
+* Master Playbook (site.yml)
+.code vagrant/site.yml /MySQL/,/- web/
+ ...
+
+* Loadbalancer Deployment
+
+.code vagrant/roles/lb/tasks/main.yml /name/,/restart/
+
+.code vagrant/roles/lb/handlers/main.yml /name/,/service/
+
+.code vagrant/roles/lb/templates/default.conf /upstream/,/proxy_pass/
+

@@ -12,6 +12,8 @@
     - libphp-simplepie
     - php-xml-parser
     - python-mysqldb
+  tags:
+   - packages
 
 - name: Copy nginx configuration for wordpress
   template: src=default.conf dest=/etc/nginx/conf.d/default.conf
@@ -23,6 +25,8 @@
 
 - name: Download Wordpress
   get_url: url=http://wordpress.org/wordpress-{{ wp_version }}.tar.gz dest=/srv/wordpress-{{ wp_version }}.tar.gz
+  tags:
+   - packages
 
 - name: Extract archive
   command: chdir=/srv/ /bin/tar xvf wordpress-{{ wp_version }}.tar.gz creates=/srv/wordpress

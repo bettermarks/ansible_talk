@@ -4,6 +4,8 @@
   with_items:
    - mysql-server
    - python-mysqldb
+  tags:
+   - packages
 
 - name: Create Mysql configuration file
   template: src=my.cnf dest=/etc/mysql/my.cnf
