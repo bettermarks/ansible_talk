@@ -285,8 +285,8 @@ You can use the when statement to execute tasks only if certain conditions are m
 * Practical Examples
 
 - Write your own modules
-- Jenkins integration (??)
-- Ansible Tower
+#- Jenkins integration (??)
+#- Ansible Tower
 - Wordpress deployment
 
 * Write Your Own Modules
@@ -306,7 +306,7 @@ You can use the when statement to execute tasks only if certain conditions are m
      "time" : date
  })
 
-*
+* 
 
 In case of a failure
 
@@ -351,7 +351,7 @@ In case changes occur while running the module
      └── web
          └── ...
 
-*
+* 
 
  ...
  └── roles
