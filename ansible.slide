@@ -368,7 +368,7 @@ Let's say we have one top-level playbook, "site.yml":
 # - all vms are running with ubuntu and we're able to access them via ssh
 # - the first one will be a loadbalancer wich is doing round robbin to the webserver
 # - in our case we're using a nginx webserver as loadbalancer
-# - on the two webservers we will run a wordpress installation with nginx, and php fastcgi process manager
+# - on the two webserver machnines we will run a wordpress installation with nginx, and php fastcgi process manager
 # - the wordpress installations are using a mysql database running on a single machnine
 
 * Files
@@ -395,9 +395,9 @@ Let's say we have one top-level playbook, "site.yml":
 
 # - here is the project structure
 # - this is currently the best pratice to setup an ansible project
-# - at first we have our inventory file
+# - at first we have our inventory file hosts
 # - the file site.yml is the master-playbook wich has to be called with the "ansible-playbook" command
-# - in group_vars/all we saved the variables we're using in the playbooks and templates
+# - in the folder group_vars we saved the file 'all' which includes the variables we're using in the playbooks and templates
 # - we could also define variables for each host group and each host
 # - in the folder 'roles' we're storing the playbooks, handlers and templates of each so called 'role'
 # - we use the role 'common' on every machnine
@@ -467,9 +467,9 @@ group_vars/all
 .code vagrant/roles/lb/templates/default.conf /upstream/,/proxy_pass/
 
 # - let's briefly go into the details of the files we're using for the 'lb' role
-# - on the top you can see the task playbook including two tasks
+# - on the top you can see the playbook stored in the tasks folder including two tasks
 # - in the first task we're using the module 'apt' to make sure that the package nginx is installed on the system
-# - in the second tass we will copy the jinga2-template after redering it to the desired destination ???
+# - in the second task we will copy the jinga2-template after redering it to the desired destination ???
 # - the handler will be triggerd after the template-task notifies a "change"
 # - on the bottom you can see the jinja2 template which will render the nginx config
 # - in line 2 we're looping over the group of 'webservers' to register each host in the loadbalancer
