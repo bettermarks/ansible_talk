@@ -341,74 +341,19 @@ You can use the "when" statement to execute tasks only if certain conditions are
 .play playbooks/playbook7.sh /begin/,/end/
 
 
-* Practical Examples
-
-- Write your own modules
-#- Jenkins integration (??)
-#- Ansible Tower
-- Wordpress deployment
+#* Practical Examples
+#
+#- Write your own modules
+##- Jenkins integration (??)
+##- Ansible Tower
+#- Wordpress deployment
 
 # - heared much details about how is ansible working
 # - lets wrap things together
 # - introduction how you can write your own modules
 # - last but not least, show a live deployment for a wordpress installation
 
-* Write Your Own Modules
-
-- write the modules in any language you want
-- only File I/O is required
-- any input parameter is a pair of key=value
-- output has to be json or key=value results all on one line
-
- #!/usr/bin/python
-
- import datetime
- import json
-
- date = str(datetime.datetime.now())
- print json.dumps({
-     "time" : date
- })
-
-# - ansible serves lot of modules for usual tasks in operations or deployment
-# - but in some cases you need to write your own modules
-# - its very easy to write your own modules
-# - you can use any programming language you want just File I/O is required
-# - as input parameter you provide your moduel key value pair, wich you can parse in the module
-# - output params can be json or pairs of key value, also exit-states will be evalute in the ansible process
-# - for python Modules there is a Ansible library to this
-# - to run the module in your playbook just add the module file in a path called "library" close to your playbook
-# - the name of this file is the name of the task you have to use in the playbook as taskname
-
-* 
-
-In case of a failure
-
- print json.dumps({
-     "failed" : True,
-     "msg"    : "failed setting the time"
- })
- sys.exit(1)
-
-In case changes occur while running the module
-
- print json.dumps({
-    "time" : date,
-    "changed" : True
- })
- sys.exit(0)
-
-[[http://docs.ansible.com/developing_modules.html]]
-
-# - there some conventions to talk with the notifier of ansible to display the result after running the module
-# - when your module is failing you just can return a status-code different from 0
-# - in addition u can send the key "failed" and a key "msg" to send information to the notifier
-# - its a good style to make sure that your Module ist working idempotent
-# - meaning the module will only make changes if the desired state does not exist
-# - to inform the notifier that occured some changes, during the runtime just add the key "changed" to the return values
-# - more details for developing modules you get at this link
-
-* Wordpress Deployment
+* Deploy Wordpress with Ansible
 .image images/wordpress_setup.png
 
 # - finally lets bring all together in "real world" - cenario
@@ -523,6 +468,62 @@ group_vars/all
 # - the rest is almost a typical nginx config
 
 * Live-Demo
+
+* Write Your Own Modules
+
+- write the modules in any language you want
+- only File I/O is required
+- any input parameter is a pair of key=value
+- output has to be json or key=value results all on one line
+
+ #!/usr/bin/python
+
+ import datetime
+ import json
+
+ date = str(datetime.datetime.now())
+ print json.dumps({
+     "time" : date
+ })
+
+# - ansible serves lot of modules for usual tasks in operations or deployment
+# - but in some cases you need to write your own modules
+# - its very easy to write your own modules
+# - you can use any programming language you want just File I/O is required
+# - as input parameter you provide your moduel key value pair, wich you can parse in the module
+# - output params can be json or pairs of key value, also exit-states will be evalute in the ansible process
+# - for python Modules there is a Ansible library to this
+# - to run the module in your playbook just add the module file in a path called "library" close to your playbook
+# - the name of this file is the name of the task you have to use in the playbook as taskname
+
+* 
+
+In case of a failure
+
+ print json.dumps({
+     "failed" : True,
+     "msg"    : "failed setting the time"
+ })
+ sys.exit(1)
+
+In case changes occur while running the module
+
+ print json.dumps({
+    "time" : date,
+    "changed" : True
+ })
+ sys.exit(0)
+
+[[http://docs.ansible.com/developing_modules.html]]
+
+# - there some conventions to talk with the notifier of ansible to display the result after running the module
+# - when your module is failing you just can return a status-code different from 0
+# - in addition u can send the key "failed" and a key "msg" to send information to the notifier
+# - its a good style to make sure that your Module ist working idempotent
+# - meaning the module will only make changes if the desired state does not exist
+# - to inform the notifier that occured some changes, during the runtime just add the key "changed" to the return values
+# - more details for developing modules you get at this link
+
 
 * Thank you for listening
 
