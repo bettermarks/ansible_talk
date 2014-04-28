@@ -14,10 +14,34 @@ http://www.bettermarks.com
 
 * Agenda
 
-Motivation
+- Introduction by Cornelius
+- Introduction to playbooks by Teymour
+- Practical examples by Andreas
 
-- Why
-- Features
+We will focus on ansible in this talk and will try to leave the comparison to other tools like puppet or chef up to you, as we have not enough experience with this tools in our team to do so.
+
+Please ask your questions whenever you have them.
+
+* Why Ansible
+
+At the beginning of bettermarks we had outsourced operations to an external contractor. Wich resulted in the following situation about 2 years ago:
+
+- A firewall between devs and ops that was even higher than in companies with seperated Dev and Ops department.
+- A Change in the deployment process took weeks or month.
+- Devs started to write extra code to work around deployment limitations.
+- No intern really knew what happend during the deployment.
+- Deploying was a long cost intensive processs.
+
+
+* So Why Ansible?
+
+- python driven, fits in our environment
+- easy to get started
+- leightweigt (no agents or extra infrastructure required )
+- easy to integrate with existing infrastructure like Jenkins
+- scales up ( and down )
+- playbook syntax is human readable and part of the deployment process documentation
+
 
 * Easy to get Started
 
@@ -115,7 +139,7 @@ If you have to manage , lets say, 700 vms in two data centers .ini and .yaml fil
 
 * Dynamic inventories
 
-Ansible can read dynamic inventories as an output of a script. So you can plug in your own inventory.
+Ansible can read dynamic inventories as an output of a script. So you can plug in your own inventory. We are using a coustom dynamic inventory backed by spacewalck wich is also used for configuration management.
 
 Currently ansible comes with scripts that support following inventory sources (found in the plugins/ folder)
 
