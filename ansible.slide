@@ -18,50 +18,50 @@ http://www.bettermarks.com
 - Introduction to playbooks by Teymour
 - Practical examples by Andreas
 
-We will focus on ansible in this talk and will try to leave the comparison to other tools like puppet or chef up to you, as we have not enough experience with this tools in our team to do so.
+We will focus on ansible in this talk and will try to leave the comparison to other tools like puppet or chef up to you, as we have not enough experience with these tools in our team to do so.
 
-Please feel free ask your questions whenever you have them.
+Please feel free to ask questions during the presentation
 
 * Why Ansible
 
-At the beginning of bettermarks we had outsourced operations to an external contractor. Wich resulted in the following situation about 2 years ago:
+At the beginning bettermarks outsourced operations to an external contractor, which resulted in the following situation about 2 years ago:
 
-- A firewall between devs and ops that was even higher than in companies with seperated Dev and Ops department.
-- A Change in the deployment process took weeks or month.
+- A firewall between devs and ops that was even higher than in companies with seperated Dev and Ops departments.
+- A change in the deployment process took weeks or months.
 - Devs started to write extra code to work around deployment limitations.
-- No intern really knew what happend during the deployment.
-- Deploying was a long cost intensive processs.
+- No internals really knew what happened during the deployment.
+- Deploying was a long cost intensive process.
 
 
 * Goals
 
 - move towards continous delivery
-- configuration managent
+- configuration management
 - handling of the different stages and locales
-- establish devops culture 
+- establish devops culture
 - transparency
 
-* Where are we tody
+* Where Are We Today
 
-- We have an intern Ops department
+- We have an internal Ops department
 - We have established a strong devops culture
-- We are thinking about merging the dev and ops department.
-- ansible is used for deployments, backups and everyere where automation is needed.
-- Our new product is deployd at least once a day.
+- We are thinking about merging the dev and ops departments.
+- Ansible is used for deployments, backups and where automation is needed.
+- Our new product is deployed at least once a day.
 
 
 * So Why Ansible?
 
-- python driven, fits in our environment
+- python-driven, fits in our environment
 - easy to get started
 - lightweight ( no agents or extra infrastructure required )
 - based on ssh, so you can use existing users, permissions, keys etc.
-- easy to integrate with existing infrastructure like Jenkins
+- easy to integrate with existing infrastructures like Jenkins
 - scales up ( and down )
 - playbook syntax is human readable and part of the deployment process documentation
 
 
-* Easy to get Started
+* Easy to Get Started
 
 .play virtualenv.sh /begin/,/end/
 
@@ -69,14 +69,14 @@ Takes about 30 seconds and we are ready to go.
 
 See [[http://docs.ansible.com/intro_installation.html]]
 
-* That's all? Really?
+* That's All? Really?
 
 Yes, we did setup a usable ansible environment with the two primary ansible commands available:
 
 - *ansible* for ad hoc automation
 - *ansible-playbook* to execute playbooks (more on playbooks later)
 
-So we are ready to explore The first cool Feature of Ansible, ad-hoc automation.
+So we are ready to explore the first cool feature of Ansible, ad-hoc automation.
 
 * Almost 
 
@@ -85,7 +85,7 @@ Ansible needs its default inventory location to be existent
 .play default_inventory.sh /begin/,/end/
 
 
-* Ad-Hoc automation with ansible
+* Ad-Hoc Automation with Ansible
 
 .play simple_adhoc.sh /begin/,/end/
 
@@ -94,10 +94,10 @@ We will learn more about ansible modules in a few minutes.
 
 * Modules
 
-- scripts with a very simple interface, can be written in any language
+- scripts with a very simple interface can be written in any language
 - are called with the parameters as key=value pairs
 - return json
-- are idempotent, i.e. do noting if the desired target state is already there.
+- are idempotent, i.e. do nothing if the desired target state is already there.
 
 For most use cases there are already modules included in ansible, but it is easy to write your own modules.
 
@@ -107,7 +107,7 @@ For most use cases there are already modules included in ansible, but it is easy
 
 [[http://docs.ansible.com/modules_by_category.html]]
 
-* More Ad-Hoc examples with modules
+* More Ad-Hoc Examples with Modules
 
 Gathering facts
 
@@ -140,15 +140,15 @@ Start it again
 
 Ansible's default inventories are files in .ini format. A section corresponds to a host group, in this case *demo*. In this case the four members of demo are obviously the local machine.
 
-An inventory can contain much more then the hostnames. You can also provide variables for hosts or groups in a combination of .ini and .yaml files.
+An inventory can contain much more than the hostnames. You can also provide variables for hosts or groups in a combination of .ini and .yaml files.
 
-* Ad-Hoc with inventory
+* Ad-Hoc with Inventory
 
 First export inventory location (defaults to /etc/anslible/hosts)
 
 .code simple_adhoc_with_inventory.sh /inventory/,/end/
 
-Now we can use the demo group definded in the inventory with ansible
+Now we can use the demo group defined in the inventory with ansible
 
 .play simple_adhoc_with_inventory.sh /begin/,/end/
 
@@ -156,18 +156,18 @@ Now we can use the demo group definded in the inventory with ansible
 - Ansible will execute the ping module in parallel on all machines matching *demo*.
 - You can limit the number of parallel deployments with parameter -f n or --forks=n.
 
-* But .ini files do not scale
+* But .ini Files Do Not Scale
 
-If you have to manage , lets say, 700 vms in two data centers .ini and .yaml files will not scale.
+If you have to manage, let's say, 700 vms in two data centers .ini and .yaml files will not scale.
 
-* Dynamic inventories
+* Dynamic Inventories
 
 - Ansible can read dynamic inventories as an output of a script
 - So you can plug in your own inventory
 - As there was no spacewalk inventory included with ansible when we started we wrote our own
 - Our inventory does also our configuration management and provides settings based on stage and locale to our playbooks.
 
-* Ansible stock dynamic inventories
+* Ansible Stock Dynamic Inventories
 
 Currently ansible comes with scripts that support following inventory sources (found in the plugins/ folder)
 
