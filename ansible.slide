@@ -488,10 +488,21 @@ group_vars/all
 
 .code vagrant/group_vars/all
 
+# - lets look into some files
+# - in the inventroy file hosts we have defined 3 groups ...
+# - also we've currently not register to much variables, just the following
+
 
 * Master Playbook (site.yml)
 .code vagrant/site.yml /MySQL/,/- web/
  ...
+
+# - this is a extract from the master playbook site.yml
+# - for the different host groups we've defined different task
+# - i.E. we're running the roles 'common' and 'db' for the database machine
+# - the user we're using to deploy the dbservers is 'vagrant'
+# - we also like to execute the tasks with sudo privilleges
+# - the tasks for the other machines are looking very similar
 
 * Loadbalancer Deployment
 
@@ -500,6 +511,18 @@ group_vars/all
 .code vagrant/roles/lb/handlers/main.yml /name/,/service/
 
 .code vagrant/roles/lb/templates/default.conf /upstream/,/proxy_pass/
+
+# - quickly lets go into the detail of the files we're using for the 'lb' role
+# - on the top your seeing the task playbook including two tasks
+# - in the first task we're using the module 'apt' to make sure the package nginx is installed on the system
+# - in the second taks we're copy the jinga2-template after redering it to the desired destination
+# - in the handlers-file you see in the middle of this slide we registered on handler to restart the apache
+# - the handler will be triggerd after the template-task notifies a "change"
+# - on the bottom you see the jinja2 template wich will render the nginx config
+# - in line 2 we're looping over the group of 'webservers' to register every in the loadbalancer
+# - the rest is almost a typical nginx config
+
+* Live-Demo
 
 * Thank you for listening
 
