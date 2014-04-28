@@ -33,11 +33,29 @@ At the beginning of bettermarks we had outsourced operations to an external cont
 - Deploying was a long cost intensive processs.
 
 
+* Goals
+
+- move towards continous delivery
+- configuration managent
+- handling of the different stages and locales
+- establish devops culture 
+- transparency
+
+* Were are we tody
+
+- We have an intern Ops department
+- We have established a strong devops culture
+- We are thinking about merging the dev and ops department.
+- ansible is used for deployments, backups and everyere where automation is needed.
+- Our new product is deployd at least once a day.
+
+
 * So Why Ansible?
 
 - python driven, fits in our environment
 - easy to get started
-- lightweight (no agents or extra infrastructure required )
+- lightweight ( no agents or extra infrastructure required )
+- based on ssh, so you can use existing users, permissions, keys etc.
 - easy to integrate with existing infrastructure like Jenkins
 - scales up ( and down )
 - playbook syntax is human readable and part of the deployment process documentation
@@ -115,6 +133,9 @@ Start it again
 
 * Inventory
 
+- We have seen that ansible scales down to a single (local) machine.
+- To scale up to multiple machines we need an inventory
+
 .code hosts
 
 Ansible's default inventories are files in .ini format. A section corresponds to a host group, in this case *demo*. In this case the four members of demo are obviously the local machine.
@@ -131,7 +152,9 @@ Now we can use the demo group definded in the inventory with ansible
 
 .play simple_adhoc_with_inventory.sh /begin/,/end/
 
-Ansible will execute the ping module in parallel on all machines matching *demo*. You can limit the number of parallel deployments with parameter -f n or --forks=n.
+
+- Ansible will execute the ping module in parallel on all machines matching *demo*.
+- You can limit the number of parallel deployments with parameter -f n or --forks=n.
 
 * But .ini files do not scale
 
@@ -139,7 +162,12 @@ If you have to manage , lets say, 700 vms in two data centers .ini and .yaml fil
 
 * Dynamic inventories
 
-Ansible can read dynamic inventories as an output of a script. So you can plug in your own inventory. We are using a coustom dynamic inventory backed by spacewalk wich is also used for configuration management.
+- Ansible can read dynamic inventories as an output of a script
+- So you can plug in your own inventory
+- As there was no spacewalk inventory included with ansible when we started we wrote our own
+- Our inventory does also our configuration management and provides settings based on stage and locale to our playbooks.
+
+* Ansible stock dynamic inventories
 
 Currently ansible comes with scripts that support following inventory sources (found in the plugins/ folder)
 
