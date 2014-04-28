@@ -1,0 +1,9 @@
+---
+- hosts: 127.0.0.1
+
+  tasks:
+    - command: ls /tmp
+      register: content_of_tmp
+
+    - command: stat /tmp/{{item}}
+      with_items: content_of_tmp.stdout_lines

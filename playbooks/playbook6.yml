@@ -1,0 +1,15 @@
+---
+- hosts: 127.0.0.1
+  vars:
+    file_to_check: file_A_does_not_exist
+
+  tasks:
+    - command: test -e {{file_to_check}}
+      register: result_of_task1
+      ignore_errors: true
+
+    - debug: msg="{{file_to_check}} exists!"
+      when: result_of_task1|success
+
+    - debug: msg="{{file_to_check}} DOES NOT exist!"
+      when: result_of_task1|failed
