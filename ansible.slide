@@ -431,3 +431,7 @@ group_vars/all
 
 .code vagrant/roles/lb/templates/default.conf /upstream/,/proxy_pass/
 
+* Thank you for listening
+
+If you want to hear more about ansible or talk to our devops you'll probalby find us at our fossball table during the socialising part of this event.
+
