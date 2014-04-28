@@ -369,22 +369,13 @@ You can use the "when" statement to execute tasks only if certain conditions are
 .play playbooks/playbook7.sh /begin/,/end/
 
 
-#* Practical Examples
-#
-#- Write your own modules
-##- Jenkins integration (??)
-##- Ansible Tower
-#- Wordpress deployment
-
-# - heared much details about how is ansible working
-# - lets wrap things together
-# - introduction how you can write your own modules
-# - last but not least, show a live deployment for a wordpress installation
-
 * Deploy Wordpress with Ansible
 .image images/wordpress_setup.png
 
-# - finally lets bring all together in "real world" - cenario
+# - heared much details about how is ansible working
+# - lets wrap things together in a little example
+# - show a live deployment for a wordpress installation
+# - if there is still time introduction how you can write your own modules
 # - in the following setup we've create 4 virtual machnines with vagrant
 # - the first one will be a loadbalancer wich is doing round robbin to the webserver
 # - in our case we're using a nginx as loadbalancer
@@ -418,8 +409,8 @@ You can use the "when" statement to execute tasks only if certain conditions are
 # - at first we've our inventory file (lets see later)
 # - site.yml ist the master-playbook wich has to be called with the "ansible-playbook" command
 # - in group_vars/all we've saved our variables we're using in the playbooks and templates
-# - we could also defined variables for each group and each host
-# - in the folder 'roles' we're storing the playbooks, handlers and templates of each 'role'
+# - we could also defined variables for each host group and each host
+# - in the folder 'roles' we're storing the playbooks, handlers and templates of each so called 'role'
 # - the role 'common' we will use on every machnine in our case we just update the package index on the machines
 # - in the 'role' 'db' will be used to setup the database (installation, creating database and grant privilleges)
 
