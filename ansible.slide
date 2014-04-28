@@ -37,7 +37,7 @@ At the beginning of bettermarks we had outsourced operations to an external cont
 
 - python driven, fits in our environment
 - easy to get started
-- leightweigt (no agents or extra infrastructure required )
+- lightweight (no agents or extra infrastructure required )
 - easy to integrate with existing infrastructure like Jenkins
 - scales up ( and down )
 - playbook syntax is human readable and part of the deployment process documentation
@@ -85,7 +85,7 @@ For most use cases there are already modules included in ansible, but it is easy
 
 * Modules Overview
 
-.image images/ansible_modules.png
+.image images/ansible_modules.png 500 900
 
 [[http://docs.ansible.com/modules_by_category.html]]
 
@@ -139,7 +139,7 @@ If you have to manage , lets say, 700 vms in two data centers .ini and .yaml fil
 
 * Dynamic inventories
 
-Ansible can read dynamic inventories as an output of a script. So you can plug in your own inventory. We are using a coustom dynamic inventory backed by spacewalck wich is also used for configuration management.
+Ansible can read dynamic inventories as an output of a script. So you can plug in your own inventory. We are using a coustom dynamic inventory backed by spacewalk wich is also used for configuration management.
 
 Currently ansible comes with scripts that support following inventory sources (found in the plugins/ folder)
 
