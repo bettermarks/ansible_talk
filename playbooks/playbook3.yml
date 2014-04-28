@@ -1,0 +1,10 @@
+---
+- hosts: 127.0.0.1
+  tasks:
+    - copy: src=source_config dest=/tmp/destination_config
+      notify:
+        - restart service
+
+  handlers:
+    - name: restart service
+      debug: msg="I am restarting the service!"

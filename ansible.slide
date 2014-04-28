@@ -52,7 +52,7 @@ We will learn more about ansible modules in a few minutes.
 
 For most use cases there are already modules included in ansible, but it is easy to write your own modules.
 
-* 
+*
 .image images/ansible_modules.png
 
 [[http://docs.ansible.com/modules_by_category.html]]
@@ -150,57 +150,100 @@ Each play has:
 
 * Example playbook
 
-#.code playbooks/playbook1.yml
-#.play playbooks/playbook1.sh /begin/,/end/
+.code playbooks/playbook1.yml
+.play playbooks/playbook1.sh /begin/,/end/
+
+- each play gathers information about the target hosts before running
+- a failed task stops and exits the playbook
 
 * Play Header: Hosts, users and roles
 
  ---
- - hosts: webservers        # pattern to match inventory
-   remote_user: blub        # user used by the ssh connection
-   sudo: yes                # use sudo
-   sudo_user: blah          # sudo as user
-   roles:
+ - name: Play 1             # Play description
+   hosts: demo              # can be either a host or a group of hosts (from the inventory)
+   remote_user: user_1      # user used by the ssh connection
+   sudo: yes                # execute modules as sudo
+   sudo_user: user_2        # sudo user
+   roles:                   # roles for the play (more on roles later)
       - role1
       - role2
 
+- the remote_user and sudo_user can be set from outside the playbook with:
 
-- remote_user is the user used by ssh.
-- if sudo: yes is used, the remote user must have sudo privileges.
-- sudo_user: execute the play via sudo.
-- user can be set on task level using the same syntax.
-- roles are reusable playbooks distributed in a defined folder structure ( more on roles later).
+  ansible-playbook playbook_file.yml --user user_3 --sudo-user user_4
+
+- users set in the playbook always win
+
+  playbook users > command line users > defaults
+
+- users can be set on task level using the same syntax.
 
 * Tasks
 
-- is defined by a name and a module definition
+- is defined by a name, a module and a key/value pair
 
  tasks:
- - name: make sure apache is running
-   service: name=httpd state=running
+   - name: make sure apache is running
+     service: name=httpd state=running
 
 - can ignore errors, otherwise the execution of the playbook will stop on error
 
  ignore_errors: True
 
-- can notify handlers defined in the handlers section.
+.play playbooks/playbook2.sh /begin/,/end/
 
- notify:
-     - restart memcached
-     - restart apache
+- after execution, come back with either of the following states: "ok", "changed" or "failed"
 
 * Handlers
 
- handlers:
-    - name: restart memcached
-      service:  name=memcached state=restarted
-    - name: restart apache
-      service: name=apache state=restarted
+- handlers are defined in the same way as tasks but in the handlers section.
+- handlers are only executed if the calling task comes back with the "changed" state
 
-The handlers are defied in the thame way as tasks but in the handlers section. Handlers are only executed if the module called by a task actualy changed something.
+.code playbooks/playbook3.yml
+.play playbooks/playbook3.sh /begin/,/end/
 
+.play playbooks/delete_tmp_config.sh /begin/,/end/
 
 * Variables
+
+- can have different origins (playbook, inventory, command line)
+- can be a single value, a list or a hashmap/dictionary
+- can be recognized by double brackets: {{var_name}}
+- support the jinja2 filters system:
+
+  {{var_name}} => /path/to/filename.txt
+  {{var_name|basename}} =>  filename.txt
+
+- see [[http://jinja.pocoo.org/docs/templates/#builtin-filters]] for a list of filters
+
+
+* Variable origins
+
+- defined or included in the playbook (play header):
+
+    vars:
+      tmp_dir: /tmp
+
+    vars_file:
+      - "vars/common.yml"
+
+- the inventory:
+
+  [demo:vars]
+  timeout=30
+
+- the command line:
+
+  ansible-playbook playbook_file.yml -e "var1=value1 var2=value2"
+
+- any variable gathered from the setup module:
+
+.play gathering_facts.sh /begin/,/end/
+
+* Variables example
+
+.code playbooks/playbook4.yml
+.play playbooks/playbook4.sh /begin/,/end/
 
 * Loops
 
@@ -228,7 +271,7 @@ See  [[http://docs.ansible.com/playbooks_loops.html]] for more complex loop exam
 
 * Conditionals
 
-You can use the when statement to execute tasks only if certain conditions are met. 
+You can use the when statement to execute tasks only if certain conditions are met.
 
  tasks:
    - name: "shutdown Debian flavored systems"
@@ -254,16 +297,16 @@ You can use the when statement to execute tasks only if certain conditions are m
 - output has to be json or key=value results all on one line
 
  #!/usr/bin/python
- 
+
  import datetime
  import json
- 
+
  date = str(datetime.datetime.now())
  print json.dumps({
      "time" : date
  })
 
-* 
+*
 
 In case of a failure
 
@@ -308,7 +351,7 @@ In case changes occur while running the module
      └── web
          └── ...
 
-* 
+*
 
  ...
  └── roles

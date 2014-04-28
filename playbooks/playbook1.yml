@@ -1,0 +1,12 @@
+---
+- name: Play 1
+  hosts: 127.0.0.1
+  tasks:
+    - name: Check that the file A is present
+      command: test -e file_A_does_not_exist
+      
+- name: Play 2
+  hosts: 127.0.0.2
+  tasks:
+    - name: Check that file B is present
+      command: test -e file_B_exists

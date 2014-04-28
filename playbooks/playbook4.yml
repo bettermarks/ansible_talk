@@ -1,0 +1,8 @@
+---
+- hosts: 127.0.0.1
+  vars:
+    - tmp_dir: /tmp
+
+  tasks:
+    - debug: msg="I am about to look into {{tmp_dir}} on a machine with {{ansible_os_family}}"
+    - command: ls {{tmp_dir}}
