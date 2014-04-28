@@ -3,6 +3,6 @@
 
 # begin OMIT
 
-ansible all -m service -a "name=apache2  state=started" --sudo -c local -i 127.0.0.1,
+ansible 127.0.0.1 -m service -a "name=apache2  state=started" --sudo -c local
 
 # end OMIT

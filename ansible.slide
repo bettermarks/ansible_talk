@@ -36,6 +36,13 @@ Yes, we did setup a usable ansible environment with the two primary ansible comm
 
 So we are ready to explore The first cool Feature of Ansible, ad-hoc automation.
 
+* Almost 
+
+Ansible needs its default inventory location to be existent
+
+.play default_inventory.sh /begin/,/end/
+
+
 * Ad-Hoc automation with ansible
 
 .play simple_adhoc.sh /begin/,/end/
@@ -52,7 +59,8 @@ We will learn more about ansible modules in a few minutes.
 
 For most use cases there are already modules included in ansible, but it is easy to write your own modules.
 
-*
+* Modules Overview
+
 .image images/ansible_modules.png
 
 [[http://docs.ansible.com/modules_by_category.html]]
