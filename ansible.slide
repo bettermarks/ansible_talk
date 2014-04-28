@@ -321,6 +321,11 @@ You can use the when statement to execute tasks only if certain conditions are m
 #- Ansible Tower
 - Wordpress deployment
 
+# - heared much details about how is ansible working
+# - lets wrap things together
+# - introduction how you can write your own modules
+# - last but not least, show a live deployment for a wordpress installation
+
 * Write Your Own Modules
 
 - write the modules in any language you want
@@ -337,6 +342,16 @@ You can use the when statement to execute tasks only if certain conditions are m
  print json.dumps({
      "time" : date
  })
+
+# - ansible serves lot of modules for usual tasks in operations or deployment
+# - but in some cases you need to write your own modules
+# - its very easy to write your own modules
+# - you can use any programming language you want just File I/O is required
+# - as input parameter you provide your moduel key value pair, wich you can parse in the module
+# - output params can be json or pairs of key value, also exit-states will be evalute in the ansible process
+# - for python Modules there is a Ansible library to this
+# - to run the module in your playbook just add the module file in a path called "library" close to your playbook
+# - the name of this file is the name of the task you have to use in the playbook as taskname
 
 * 
 
@@ -358,8 +373,23 @@ In case changes occur while running the module
 
 [[http://docs.ansible.com/developing_modules.html]]
 
+# - there some conventions to talk with the notifier of ansible to display the result after running the module
+# - when your module is failing you just can return a status-code different from 0
+# - in addition u can send the key "failed" and a key "msg" to send information to the notifier
+# - its a good style to make sure that your Module ist working idempotent
+# - meaning the module will only make changes if the desired state does not exist
+# - to inform the notifier that occured some changes, during the runtime just add the key "changed" to the return values
+# - more details for developing modules you get at this link
+
 * Wordpress Deployment
 .image images/wordpress_setup.png
+
+# - finally lets bring all together in "real world" - cenario
+# - in the following setup we've create 4 virtual machnines with vagrant
+# - the first one will be a loadbalancer wich is doing round robbin to the webserver
+# - in our case we're using a nginx as loadbalancer
+# - on the two webservers we will run a wordpress installation with nginx, and php fastcgi process manager
+# - the wordpress installations are using a mysql database running on a single machnine
 
 * Files
  .
@@ -382,6 +412,16 @@ In case changes occur while running the module
      │   └── ...
      └── web
          └── ...
+
+# - our project structure is looking like this
+# - this is more or less consens to manage a ansible project
+# - at first we've our inventory file (lets see later)
+# - site.yml ist the master-playbook wich has to be called with the "ansible-playbook" command
+# - in group_vars/all we've saved our variables we're using in the playbooks and templates
+# - we could also defined variables for each group and each host
+# - in the folder 'roles' we're storing the playbooks, handlers and templates of each 'role'
+# - the role 'common' we will use on every machnine in our case we just update the package index on the machines
+# - in the 'role' 'db' will be used to setup the database (installation, creating database and grant privilleges)
 
 * 
 
@@ -407,6 +447,9 @@ In case changes occur while running the module
              ├── default.conf   # nginx configuration file
              ├── wordpress.conf # php fastcgi (php-fpm) configuration file
              └── wp-config.php  # wordpress configuration file
+
+# - the roles 'lb' and 'web' are looking very similar
+# - for sure we need some more templates for the webserver deployment
 
 * Inventory
 
