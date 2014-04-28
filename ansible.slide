@@ -327,7 +327,7 @@ In case changes occur while running the module
 [[http://docs.ansible.com/developing_modules.html]]
 
 * Wordpress Deployment
-.image images/wordpress_setup.png 600 700
+.image images/wordpress_setup.png
 
 * Files
  .
