@@ -358,13 +358,16 @@ Let's say we have one top-level playbook, "site.yml":
 * Deploy Wordpress with Ansible
 .image images/wordpress_setup.png
 
-# - heared much details about how is ansible working
-# - lets wrap things together in a little example
+# - heared much details about how ansible works
+# - let's wrap up things together in a little example
 # - show a live deployment for a wordpress installation
-# - if there is still time introduction how you can write your own modules
-# - in the following setup we've create 4 virtual machnines with vagrant
+# - if there is still time I will give you an introduction on how you can write your own modules
+# -
+# - first have a look at the wordpress deployment
+# - in the following setup we've created 4 virtual machnines with vagrant
+# - all vms are running with ubuntu and we're able to access them via ssh
 # - the first one will be a loadbalancer wich is doing round robbin to the webserver
-# - in our case we're using a nginx as loadbalancer
+# - in our case we're using a nginx webserver as loadbalancer
 # - on the two webservers we will run a wordpress installation with nginx, and php fastcgi process manager
 # - the wordpress installations are using a mysql database running on a single machnine
 
@@ -390,15 +393,16 @@ Let's say we have one top-level playbook, "site.yml":
      └── web
          └── ...
 
-# - our project structure is looking like this
-# - this is more or less consens to manage a ansible project
-# - at first we've our inventory file (lets see later)
-# - site.yml ist the master-playbook wich has to be called with the "ansible-playbook" command
-# - in group_vars/all we've saved our variables we're using in the playbooks and templates
-# - we could also defined variables for each host group and each host
+# - here is the project structure
+# - this is currently the best pratice to setup an ansible project
+# - at first we have our inventory file
+# - the file site.yml is the master-playbook wich has to be called with the "ansible-playbook" command
+# - in group_vars/all we saved the variables we're using in the playbooks and templates
+# - we could also define variables for each host group and each host
 # - in the folder 'roles' we're storing the playbooks, handlers and templates of each so called 'role'
-# - the role 'common' we will use on every machnine in our case we just update the package index on the machines
-# - in the 'role' 'db' will be used to setup the database (installation, creating database and grant privilleges)
+# - we use the role 'common' on every machnine
+# - in this case we just update the package index on the machines
+# - the 'role' 'db' will be used to setup the database (installation, creating database and grant privilleges)
 
 * 
 
@@ -425,7 +429,7 @@ Let's say we have one top-level playbook, "site.yml":
              ├── wordpress.conf # php fastcgi (php-fpm) configuration file
              └── wp-config.php  # wordpress configuration file
 
-# - the roles 'lb' and 'web' are looking very similar
+# - the roles 'lb' and 'web' are very similar
 # - for sure we need some more templates for the webserver deployment
 
 * Inventory
@@ -438,21 +442,21 @@ group_vars/all
 
 .code vagrant/group_vars/all
 
-# - lets look into some files
-# - in the inventroy file hosts we have defined 3 groups ...
-# - also we've currently not register to much variables, just the following
+# - let's look into some of the files
+# - in the inventory file hosts we defined 3 groups ...
+# - we registered few variables
 
 
 * Master Playbook (site.yml)
 .code vagrant/site.yml /MySQL/,/- web/
  ...
 
-# - this is a extract from the master playbook site.yml
-# - for the different host groups we've defined different task
+# - here you can see an extract of the master playbook site.yml
+# - for the different host groups we defined different plays
 # - i.E. we're running the roles 'common' and 'db' for the database machine
 # - the user we're using to deploy the dbservers is 'vagrant'
-# - we also like to execute the tasks with sudo privilleges
-# - the tasks for the other machines are looking very similar
+# - we will execute the tasks with sudo privileges
+# - the tasks for the other machines are very similar
 
 * Loadbalancer Deployment
 
@@ -462,14 +466,13 @@ group_vars/all
 
 .code vagrant/roles/lb/templates/default.conf /upstream/,/proxy_pass/
 
-# - quickly lets go into the detail of the files we're using for the 'lb' role
-# - on the top your seeing the task playbook including two tasks
-# - in the first task we're using the module 'apt' to make sure the package nginx is installed on the system
-# - in the second taks we're copy the jinga2-template after redering it to the desired destination
-# - in the handlers-file you see in the middle of this slide we registered on handler to restart the apache
+# - let's briefly go into the details of the files we're using for the 'lb' role
+# - on the top you can see the task playbook including two tasks
+# - in the first task we're using the module 'apt' to make sure that the package nginx is installed on the system
+# - in the second tass we will copy the jinga2-template after redering it to the desired destination ???
 # - the handler will be triggerd after the template-task notifies a "change"
-# - on the bottom you see the jinja2 template wich will render the nginx config
-# - in line 2 we're looping over the group of 'webservers' to register every in the loadbalancer
+# - on the bottom you can see the jinja2 template which will render the nginx config
+# - in line 2 we're looping over the group of 'webservers' to register each host in the loadbalancer
 # - the rest is almost a typical nginx config
 
 * Live-Demo
