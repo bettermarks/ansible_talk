@@ -236,6 +236,20 @@ Each play has:
 
 .play playbooks/delete_tmp_config.sh /begin/,/end/
 
+* Includes
+
+The include statement allows us to split our playbook into smaller parts, either for re-usability or better overview:
+
+Let's say we have one top-level playbook, "site.yml":
+
+ - include: common.yml
+ - include: load_balancers.yml
+ - include: webservers.yml
+ - include: dbservers.yml
+
+- a play cannot be included into another play. Only tasks can be included into a play.
+- roles seem to provide a more powerful way to handle include statements (will be covered later).
+
 * Variables
 
 - can have different origins (playbook, inventory, command line)
@@ -279,39 +293,52 @@ Each play has:
 
 * Loops
 
-* Standard  Loop Example
+- execute a task several times, once for each item in a collection
+- the collection can be a list, a hashmap, fileglobs, etc...
 
- - name: add several users
-   user: name={{ item }} state=present groups=wheel
+The simplest loop is iterating over a list of items:
+
+ - name: a task to add several users
+   user: name={{ item }} state=present groups=dev
    with_items:
       - testuser1
       - testuser2
 
-with_items: can refer to list defined in the vars section, in a variables file or the inventory.
+whith_items can also accept a variable:
 
- with_items: somelist
+  with_items: some_list
 
 * More Loops
 
 See  [[http://docs.ansible.com/playbooks_loops.html]] for more complex loop examples including:
 
-- Nested loops
-- Loops over hashes
-- Loops over fileglobs
-- Loops over integer sequences
-- etc.
+- with_nested: nested loops
+- with_dict: loops over hashes
+- with_fileglob: loops over fileglobs
+- with_sequence: loops over integer sequences
+- do until loops (along with a retries limit + delay between retries)
+
+* And even more loops!
+
+My personal favorite in ansible is the "register" keyword. In combination with loops, this gives us a powerful tool.
+
+.code playbooks/playbook5.yml
+.play playbooks/playbook5.sh /begin/,/end/
 
 * Conditionals
 
-You can use the when statement to execute tasks only if certain conditions are met.
+You can use the "when" statement to execute tasks only if certain conditions are met.
 
  tasks:
    - name: "shutdown Debian flavored systems"
      command: /sbin/shutdown -t now
      when: ansible_os_family == "Debian"
 
+* Conditionals and the register keyword
 
-# TODO describe Variables.
+.code playbooks/playbook6.yml
+.play playbooks/playbook6.sh /begin/,/end/
+.play playbooks/playbook7.sh /begin/,/end/
 
 
 * Practical Examples
