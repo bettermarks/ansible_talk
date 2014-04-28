@@ -216,7 +216,7 @@ Each play has:
 - each play gathers information about the target hosts before running
 - a failed task stops and exits the playbook
 
-* Play Header: Hosts, users and roles
+* Header
 
  ---
  - name: Play 1             # Play description
@@ -224,19 +224,8 @@ Each play has:
    remote_user: user_1      # user used by the ssh connection
    sudo: yes                # execute modules as sudo
    sudo_user: user_2        # sudo user
-   roles:                   # roles for the play (more on roles later)
-      - role1
-      - role2
 
-- the remote_user and sudo_user can be set from outside the playbook with:
-
-  ansible-playbook playbook_file.yml --user user_3 --sudo-user user_4
-
-- users set in the playbook always win
-
-  playbook users > command line users > defaults
-
-- users can be set on task level using the same syntax.
+The only mandatory key in the header is "hosts". Everything else is optional.
 
 * Tasks
 
@@ -252,10 +241,11 @@ Each play has:
 
 .play playbooks/playbook2.sh /begin/,/end/
 
-- after execution, come back with either of the following states: "ok", "changed" or "failed"
+- after execution, comes back with either of the following states: "ok", "changed", "failed" or "skipped".
 
 * Handlers
 
+- handlers are "callbacks" that get notified by tasks.
 - handlers are defined in the same way as tasks but in the handlers section.
 - handlers are only executed if the calling task comes back with the "changed" state
 
@@ -264,23 +254,9 @@ Each play has:
 
 .play playbooks/delete_tmp_config.sh /begin/,/end/
 
-* Includes
-
-The include statement allows us to split our playbook into smaller parts, either for re-usability or better overview:
-
-Let's say we have one top-level playbook, "site.yml":
-
- - include: common.yml
- - include: load_balancers.yml
- - include: webservers.yml
- - include: dbservers.yml
-
-- a play cannot be included into another play. Only tasks can be included into a play.
-- roles seem to provide a more powerful way to handle include statements (will be covered later).
 
 * Variables
 
-- can have different origins (playbook, inventory, command line)
 - can be a single value, a list or a hashmap/dictionary
 - can be recognized by double brackets: {{var_name}}
 - support the jinja2 filters system:
@@ -301,7 +277,7 @@ Let's say we have one top-level playbook, "site.yml":
     vars_file:
       - "vars/common.yml"
 
-- the inventory:
+- the inventory (.ini format):
 
   [demo:vars]
   timeout=30
@@ -314,10 +290,10 @@ Let's say we have one top-level playbook, "site.yml":
 
 .play gathering_facts.sh /begin/,/end/
 
-* Variables example
-
-.code playbooks/playbook4.yml
-.play playbooks/playbook4.sh /begin/,/end/
+#* Variables example
+#
+#.code playbooks/playbook4.yml
+#.play playbooks/playbook4.sh /begin/,/end/
 
 * Loops
 
@@ -332,9 +308,12 @@ The simplest loop is iterating over a list of items:
       - testuser1
       - testuser2
 
-whith_items can also accept a variable:
-
-  with_items: some_list
+#* Loop example
+#
+#My personal favorite in ansible is the "register" keyword. In combination with loops, this gives us a powerful tool.
+#
+#.code playbooks/playbook5.yml
+#.play playbooks/playbook5.sh /begin/,/end/
 
 * More Loops
 
@@ -346,16 +325,9 @@ See  [[http://docs.ansible.com/playbooks_loops.html]] for more complex loop exam
 - with_sequence: loops over integer sequences
 - do until loops (along with a retries limit + delay between retries)
 
-* And even more loops!
-
-My personal favorite in ansible is the "register" keyword. In combination with loops, this gives us a powerful tool.
-
-.code playbooks/playbook5.yml
-.play playbooks/playbook5.sh /begin/,/end/
-
 * Conditionals
 
-You can use the "when" statement to execute tasks only if certain conditions are met.
+You can use the "when" statement to execute tasks only if specific conditions are met.
 
  tasks:
    - name: "shutdown Debian flavored systems"
@@ -368,6 +340,20 @@ You can use the "when" statement to execute tasks only if certain conditions are
 .play playbooks/playbook6.sh /begin/,/end/
 .play playbooks/playbook7.sh /begin/,/end/
 
+* Includes
+
+The include statement allows us to split our playbook into smaller parts, either for re-usability or better overview:
+
+Let's say we have one top-level playbook, "site.yml":
+
+ - include: common.yml
+ - include: load_balancers.yml
+ - include: webservers.yml
+ - include: dbservers.yml
+
+* Roles
+
+- roles are ansible's way of automating / structuring includes.
 
 * Deploy Wordpress with Ansible
 .image images/wordpress_setup.png
