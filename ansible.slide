@@ -18,7 +18,7 @@ http://www.bettermarks.com
 - Introduction to playbooks by Teymour
 - Practical examples by Andreas
 
-We will focus on ansible in this talk and will try to leave the comparison to other tools like puppet or chef up to you, as we have not enough experience with these tools in our team to do so.
+We will focus on ansible in this talk and will try to leave the comparison to other tools like puppet or chef up to you.
 
 Please feel free to ask questions during the presentation
 
@@ -353,7 +353,31 @@ Let's say we have one top-level playbook, "site.yml":
 
 * Roles
 
-- roles are ansible's way of automating / structuring includes.
+Roles are ansible's way of automating / structuring includes.
+
+Only two conditions have to be met to be able to use roles. Specify roles in the play header:
+
+  ---
+  - name: a play with roles
+    hosts: 127.0.0.1
+    roles:
+      - my_own_custom_role
+
+And have following directory structure ready:
+
+  roles
+  ├── my_own_custom_role
+  │   └── tasks
+  │   ├── handlers
+
+* Where to find roles?
+
+Ansible Galaxy is a "roles repository", a great place to find re-usable roles for your playbooks. See [[https://galaxy.ansible.com/]] to get started.
+
+You can install/checkout the roles with the command:
+
+  ansible-galaxy install bobrik.kibana
+
 
 * Deploy Wordpress with Ansible
 .image images/wordpress_setup.png
