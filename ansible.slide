@@ -331,13 +331,6 @@ The simplest loop is iterating over a list of items:
       - testuser1
       - testuser2
 
-#* Loop example
-#
-#My personal favorite in ansible is the "register" keyword. In combination with loops, this gives us a powerful tool.
-#
-#.code playbooks/playbook5.yml
-#.play playbooks/playbook5.sh /begin/,/end/
-
 * More Loops
 
 See  [[http://docs.ansible.com/playbooks_loops.html]] for more complex loop examples including:
@@ -357,7 +350,7 @@ You can use the "when" statement to execute tasks only if specific conditions ar
      command: /sbin/shutdown -t now
      when: ansible_os_family == "Debian"
 
-* Conditionals and the register keyword
+* Putting it together
 
 .code playbooks/playbook6.yml
 .play playbooks/playbook6.sh /begin/,/end/
@@ -390,7 +383,7 @@ And have following directory structure ready:
 
   roles
   ├── my_own_custom_role
-  │   └── tasks
+  │   ├── tasks
   │   ├── handlers
 
 * Where to find roles?
