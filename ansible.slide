@@ -94,6 +94,25 @@ Ansible needs its default inventory location to be existent
 We just executed the simplest possible ansible module *ping* on our local machine.
 We will learn more about ansible modules in a few minutes.
 
+Usefull commandline arguments:
+  
+  -u REMOTE_USER, --user=REMOTE_USER
+                        connect as this user (default=your_username) 
+  -k, --ask-pass        ask for SSH password
+  --ask-su-pass         ask for su password
+  -K, --ask-sudo-pass   ask for sudo password
+  -S, --su              run operations with su
+  -R SU_USER, --su-user=SU_USER
+                        run operations with su as this user (default=root)
+  -s, --sudo            run operations with sudo (nopasswd)
+  -v, --verbose         verbose mode (-vvv for more, -vvvv to enable
+                        connection debugging)
+  -c CONNECTION, --connection=CONNECTION
+                        connection type to use (default=smart)
+
+
+
+
 * Modules
 
 - scripts with a very simple interface can be written in any language
