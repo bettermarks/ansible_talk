@@ -113,7 +113,7 @@ Gathering facts
 
 .play gathering_facts.sh /begin/,/end/
 
-Check out the ansible source code into /tmp
+Check out the source code of  this talk  into /tmp
 
 # TODO ansible is to big, takes to long in presentation mode :(
 
