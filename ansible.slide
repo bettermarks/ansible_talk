@@ -2,7 +2,9 @@ Ansible - Who Needs Another Automation Framework?
 Introduction to the concepts of the Python-based automation framework Ansible
 
 29 April 2014
-Tags: ansible, devops
+#Tags: ansible, devops
+
+https://github.com/bettermarks/ansible_talk
 
 Andreas Pohle (@apoh), Cornelius Keller, Teymour Taghavi
 
@@ -559,10 +561,10 @@ In case changes occur while running the module
 # - more details for developing modules you get at this link
 
 
-* Thank you for listening
-
-If you want to hear more about ansible or talk to our devops:
-
-- grep some beer and food in the break
-- meet us at the fossball table in the kitchen.
+#* Thank you for listening
+#
+#If you want to hear more about ansible or talk to our devops:
+#
+#- grep some beer and food in the break
+#- meet us at the fossball table in the kitchen.
 
