@@ -4,6 +4,6 @@
   tags:
    - packages
 
-- name: Copy nginx configuration for wordpress
+- name: Copy nginx configuration for loadbalancer
   template: src=default.conf dest=/etc/nginx/conf.d/default.conf
   notify: restart nginx

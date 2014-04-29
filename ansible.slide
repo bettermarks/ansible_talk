@@ -477,6 +477,8 @@ group_vars/all
 
 * Live-Demo
 
+.link http://wordpress.loc
+
 * Write Your Own Modules
 
 - write the modules in any language you want
