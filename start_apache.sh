@@ -3,6 +3,6 @@
 
 # begin OMIT
 
-ansible 127.0.0.1 -m service -a "name=apache2  state=started" --sudo -c local
+ansible 127.0.0.1 -m service -a "name=nginx  state=started" --sudo -c local
 
 # end OMIT
