@@ -210,6 +210,8 @@ see [[http://docs.ansible.com/intro_dynamic_inventory.html]] for more informatio
 
 * Playbooks
 
+* Playbooks
+
 "If Ansible modules are the tools in your workshop, playbooks are your design plans."
 
 Simply put, playbooks are a collection of ansible actions. Additionaly, they provide tools to control the flow of those actions.
@@ -399,6 +401,8 @@ You can install/checkout the roles with the command:
 
   ansible-galaxy install bobrik.kibana
 
+
+* Practical Examples
 
 * Deploy Wordpress with Ansible
 .image images/wordpress_setup.png
